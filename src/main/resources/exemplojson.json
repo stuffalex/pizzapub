@@ -1,0 +1,15 @@
+{
+  "cpfCliente": "123...",
+  "itens": [
+    {
+      "saboresIds": [1],
+      "quantidade": 1,
+      "observacao": "Bem assada"
+    },
+    {
+      "saboresIds": [1, 2],
+      "quantidade": 2,
+      "observacao": "Meio a meio"
+    }
+  ]
+}

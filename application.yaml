@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:pizzariadb;DB_CLOSE_DELAY=-1
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha # Organiza os endpoints em ordem alfabética
+    tags-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
