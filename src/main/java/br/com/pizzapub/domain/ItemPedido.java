@@ -10,6 +10,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Entidade que representa um item dentro de um {@link Pedido}.
+ *
+ * <p>Cada item pode conter de 1 a 2 sabores ({@link Produto}), suportando o modelo de
+ * pizza inteira (1 sabor) ou meio a meio (2 sabores).
+ * Os sabores são mapeados via relação {@code ManyToMany} com tabela de junção
+ * {@code tb_item_pedido_sabores}.</p>
+ *
+ * <p><strong>Regra de preço</strong>: O {@code precoUnitario} é definido como o maior preço
+ * entre os sabores selecionados. Veja {@link br.com.pizzapub.service.PedidoService#criarItem}.</p>
+ *
+ * @see Pedido
+ * @see Produto
+ * @see br.com.pizzapub.service.PedidoService
+ */
 @Entity
 @Table(name = "tb_item_pedido")
 @Getter // Lombok para evitar boilerplate
