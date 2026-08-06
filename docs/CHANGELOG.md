@@ -7,9 +7,40 @@
 
 ## [Não lançado]
 
-### Em desenvolvimento (M2)
-- Autenticação JWT com Spring Security
-- Perfis de usuário: CLIENTE, ATENDENTE, ADMIN
+### Próximo (M3)
+- Cardápio Online — frontend React + Vite
+
+---
+
+## [0.2.0] — 2026-08-05
+
+### ✅ Adicionado — M2 · Autenticação & Segurança
+- **Spring Security 7** integrado com política stateless (JWT)
+- Entidade `Usuario` implementando `UserDetails` (tabela `tb_usuario`)
+- Enum `PerfilUsuario`: `CLIENTE`, `ATENDENTE`, `ADMIN`
+- `JwtService` — geração e validação de tokens (jjwt 0.12.6, HS256, 24h)
+- `AuthService` — fluxos de login e registro com BCryptPasswordEncoder
+- `JwtAuthenticationFilter` — filtro `OncePerRequestFilter` que valida Bearer tokens
+- `SecurityConfig` — `SecurityFilterChain` com regras completas de autorização por perfil
+- `POST /api/auth/login` — público, retorna JWT
+- `POST /api/auth/register` — restrito a `ADMIN`
+- `DataInitializer` — cria `admin@pizzapub.com / admin123` na inicialização
+- Botão **Authorize** no Swagger UI (Bearer JWT via `OpenApiConfig`)
+
+### 🔒 Matriz de Autorização
+| Endpoint | Acesso |
+|---|---|
+| `GET /api/produtos/**` | Público |
+| `POST /api/auth/login` | Público |
+| `GET /swagger-ui/**`, `/v3/api-docs/**`, `/h2-console/**` | Público |
+| `POST /api/pedidos` | CLIENTE, ATENDENTE, ADMIN |
+| `GET /api/pedidos/**` | ATENDENTE, ADMIN |
+| `POST /api/produtos` | ADMIN |
+| `DELETE /api/produtos/**` | ADMIN |
+| `POST /api/auth/register` | ADMIN |
+
+### 🐛 Corrigido
+- Import faltante de `Endereco` em `PedidoService` (causaria erro em runtime)
 
 ---
 
