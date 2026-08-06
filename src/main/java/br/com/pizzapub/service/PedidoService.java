@@ -126,4 +126,12 @@ public class PedidoService {
     public Pedido buscarPedidoPorId(Long id) {
         return pedidoRepository.findById(id).orElse(null);
     }
+
+    /**
+     * Lista todos os pedidos cadastrados.
+     * @return Lista de pedidos
+     */
+    public List<Pedido> listarTodos() {
+        return pedidoRepository.findAll();
+    }
 }

@@ -106,10 +106,10 @@
 **Alternativa considerada**: Monorepo com ambos os frontends.
 
 **Razões**:
-- Deploy independente (cardápio pode ser atualizado sem afetar o painel)
-- Permissões de acesso separadas (painel é privado)
-- Menor complexidade de configuração para o time
-- Escalabilidade futura independente
+- Deploy independente e facilitado (Frontend pode ir para Vercel/Netlify; Backend para Render/Railway/AWS).
+- Permissões de acesso separadas (painel é privado).
+- Menor complexidade de configuração para o time.
+- Escalabilidade futura independente.
 
 ---
 

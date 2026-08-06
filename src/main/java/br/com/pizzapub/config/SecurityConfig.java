@@ -97,7 +97,7 @@ public class SecurityConfig {
 
                         // Pedidos — criar requer autenticação, consultar requer ATENDENTE+
                         .requestMatchers(HttpMethod.POST, "/api/pedidos").hasAnyRole("CLIENTE", "ATENDENTE", "ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/pedidos/**").hasAnyRole("ATENDENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/pedidos", "/api/pedidos/**").hasAnyRole("ATENDENTE", "ADMIN")
 
                         // Ferramentas de desenvolvimento — sem autenticação
                         .requestMatchers(

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * Controller REST para o recurso {@code /api/pedidos}.
@@ -53,5 +54,15 @@ public class PedidoController {
         // Aqui você chamaria um método do service para buscar
         Pedido pedido = pedidoService.buscarPedidoPorId(id);
         return ResponseEntity.ok(pedido);
+    }
+
+    /**
+     * Lista todos os pedidos.
+     *
+     * @return {@code 200 OK} com a lista de pedidos
+     */
+    @GetMapping
+    public ResponseEntity<List<Pedido>> listarTodos() {
+        return ResponseEntity.ok(pedidoService.listarTodos());
     }
 }
