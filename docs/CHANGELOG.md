@@ -7,8 +7,34 @@
 
 ## [Não lançado]
 
-### Próximo (M3)
-- Cardápio Online — frontend React + Vite
+### Próximo (M4 e M5)
+- Painel de Pedidos — frontend React interno (M4)
+- Integração Supabase — Produção (M5)
+
+---
+
+## [0.3.0] — 2026-08-05
+
+### ✅ Adicionado — M3 · Cardápio Online (Frontend)
+- Projeto Vite + React + TypeScript em `pizzapub-menu`
+- Design System responsivo (paleta quente, tipografia Outfit/Inter, CSS Modules)
+- Integração Axios com API Spring Boot (baseURL configurada via variáveis de ambiente)
+- **Componentes globais**: Layout, Header (com ícone animado do carrinho), Footer, Modal, Skeleton Loaders
+- **Store Zustand**:
+  - `useCartStore`: persistência no `localStorage` e lógica de subtotal
+  - `useAuthStore`: preparado para M5 (sessão Supabase)
+- **Feature Cardápio (`/`)**:
+  - Grid de pizzas (consumindo `GET /api/produtos` via React Query)
+  - Filtro por nome
+  - Modal de detalhes com seletor de "meio a meio" e observações
+- **Feature Carrinho**: Drawer lateral animado para gerenciar itens
+- **Feature Checkout (`/checkout`)**:
+  - Formulário com máscaras (CPF e telefone)
+  - Validação frontend e envio via `POST /api/pedidos`
+  - Resumo fixo na lateral
+- **Feature Confirmação (`/confirmacao`)**: Tela de sucesso pós-pedido
+- **Auth do cliente**: Tela de login restrito (`/login`)
+- **Preparação M5**: Types de banco de dados vazios, variáveis Supabase comentadas no environment e README dedicado.
 
 ---
 
