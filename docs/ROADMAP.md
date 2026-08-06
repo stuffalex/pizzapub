@@ -11,8 +11,8 @@
 |---|---|---|
 | M1 · Backend Core | ✅ Concluído | ██████████ 100% |
 | M2 · Autenticação & Segurança | ✅ Concluído | ██████████ 100% |
-| M3 · Cardápio Online (Frontend) | ⏳ Aguardando | ░░░░░░░░░░ 0% |
-| M4 · Painel de Pedidos (Frontend) | ⏳ Aguardando | ░░░░░░░░░░ 0% |
+| M3 · Cardápio Online (Frontend) | ✅ Concluído | ██████████ 100% |
+| M4 · Painel de Pedidos (Frontend) | 🔄 Em andamento | ░░░░░░░░░░ 0% |
 | M5 · Integração Supabase (Produção) | ⏳ Aguardando | ░░░░░░░░░░ 0% |
 | M6 · Deploy & DevOps | ⏳ Aguardando | ░░░░░░░░░░ 0% |
 
