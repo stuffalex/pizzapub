@@ -25,3 +25,9 @@ springdoc:
     tags-sorter: alpha
   api-docs:
     path: /v3/api-docs
+
+# Configuração JWT
+# IMPORTANTE: Em produção, substitua o secret por uma variável de ambiente segura
+jwt:
+  secret: cGl6emFwdWItc2VjcmV0LWtleS0yMDI2LXN1cGVyLXNlY3VyZS1qd3Q=
+  expiration: 86400000 # 24 horas em milissegundos

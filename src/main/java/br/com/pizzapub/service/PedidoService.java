@@ -1,6 +1,7 @@
 package br.com.pizzapub.service;
 
 import br.com.pizzapub.domain.Cliente;
+import br.com.pizzapub.domain.Endereco;
 import br.com.pizzapub.domain.ItemPedido;
 import br.com.pizzapub.domain.Pedido;
 import br.com.pizzapub.domain.Produto;

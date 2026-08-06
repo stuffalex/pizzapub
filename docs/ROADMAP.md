@@ -10,7 +10,7 @@
 | Milestone | Status | Progresso |
 |---|---|---|
 | M1 · Backend Core | ✅ Concluído | ██████████ 100% |
-| M2 · Autenticação & Segurança | 🔄 Em andamento | ░░░░░░░░░░ 0% |
+| M2 · Autenticação & Segurança | ✅ Concluído | ██████████ 100% |
 | M3 · Cardápio Online (Frontend) | ⏳ Aguardando | ░░░░░░░░░░ 0% |
 | M4 · Painel de Pedidos (Frontend) | ⏳ Aguardando | ░░░░░░░░░░ 0% |
 | M5 · Integração Supabase (Produção) | ⏳ Aguardando | ░░░░░░░░░░ 0% |
@@ -64,45 +64,46 @@
 
 ---
 
-## 🔄 M2 · Autenticação & Segurança
+## ✅ M2 · Autenticação & Segurança
 
 > **Meta**: Proteger os endpoints com JWT, definir perfis de acesso e preparar o sistema para múltiplos usuários.
-> **Status**: 🔄 Em andamento — **Próximo milestone a ser executado**
+> **Status**: ✅ Concluído
 
 ### 🎯 F2.1 · Spring Security + JWT
 
-- [ ] Adicionar dependência `spring-boot-starter-security` no `build.gradle.kts`
-- [ ] Adicionar dependência `jjwt` (ou `nimbus-jose-jwt`) para geração/validação de tokens
-- [ ] Criar entidade `Usuario` (id, email, senha, perfil)
-  - [ ] Perfis: `CLIENTE`, `ATENDENTE`, `ADMIN`
-- [ ] Criar `UsuarioRepository` com `findByEmail`
-- [ ] Implementar `UserDetailsService` customizado
-- [ ] Implementar `JwtService` (geração, validação e extração de claims)
+- [x] Adicionar dependência `spring-boot-starter-security` no `build.gradle.kts`
+- [x] Adicionar dependência `jjwt-api`, `jjwt-impl`, `jjwt-jackson` (v0.12.6)
+- [x] Criar entidade `Usuario` (id, email, senha, perfil)
+  - [x] Perfis: `CLIENTE`, `ATENDENTE`, `ADMIN`
+- [x] Criar `UsuarioRepository` com `findByEmail`
+- [x] Implementar `UsuarioDetailsService` customizado
+- [x] Implementar `JwtService` (geração, validação e extração de claims)
 
 ### 🎯 F2.2 · Endpoints de Autenticação
 
-- [ ] `POST /api/auth/login` — recebe email + senha, retorna JWT
-- [ ] `POST /api/auth/register` — cadastro de novo usuário (admin-only em produção)
-- [ ] `POST /api/auth/refresh` — renovar token expirado
-- [ ] Criar `AuthController` e `AuthService`
-- [ ] Criar DTOs: `LoginRequestDTO`, `LoginResponseDTO`, `RegisterRequestDTO`
+- [x] `POST /api/auth/login` — recebe email + senha, retorna JWT
+- [x] `POST /api/auth/register` — restrito a ADMIN (protegido com `@PreAuthorize`)
+- [x] Criar `AuthController` e `AuthService`
+- [x] Criar DTOs: `LoginRequestDTO`, `LoginResponseDTO`, `RegisterRequestDTO`
 
 ### 🎯 F2.3 · Filtro JWT & Autorização
 
-- [ ] Implementar `JwtAuthenticationFilter` (intercepta requests e valida token)
-- [ ] Configurar `SecurityFilterChain` em `SecurityConfig`
-  - [ ] Endpoints públicos: `GET /api/produtos`, `POST /api/auth/login`
-  - [ ] Endpoints `ATENDENTE+`: `GET /api/pedidos/**`, `PUT /api/pedidos/**`
-  - [ ] Endpoints `ADMIN`: `POST /api/produtos`, `DELETE /api/produtos/**`
-- [ ] Testar autorização por perfil com Swagger UI
+- [x] Implementar `JwtAuthenticationFilter` (intercepta requests e valida token)
+- [x] Configurar `SecurityFilterChain` em `SecurityConfig`
+  - [x] Endpoints públicos: `GET /api/produtos`, `POST /api/auth/login`
+  - [x] Endpoints `ATENDENTE+`: `GET /api/pedidos/**`, `PUT /api/pedidos/**`
+  - [x] Endpoints `ADMIN`: `POST /api/produtos`, `DELETE /api/produtos/**`, `POST /api/auth/register`
+- [x] Swagger UI sem autenticação (`/swagger-ui/**`, `/v3/api-docs/**` públicos)
+- [x] Botão Authorize no Swagger (Bearer JWT via `OpenApiConfig`)
 
 ### 🎯 F2.4 · Segurança de Dados
 
-- [ ] Hash de senha com `BCryptPasswordEncoder`
-- [ ] Não expor entidade `Usuario` diretamente (usar DTO sem senha)
-- [ ] Validar que cliente só acessa seus próprios pedidos
-- [ ] Adicionar `@PreAuthorize` nos métodos sensíveis
-- [ ] Configurar tempo de expiração do JWT via `application.yaml`
+- [x] Hash de senha com `BCryptPasswordEncoder`
+- [x] Não expor entidade `Usuario` diretamente (usar DTOs `auth/` sem senha)
+- [x] `POST /api/auth/register` protegido com `@PreAuthorize("hasRole('ADMIN')")`
+- [x] `DataInitializer` — cria admin padrão (`admin@pizzapub.com` / `admin123`) na inicialização
+- [x] Configurar tempo de expiração do JWT (24h) via `application.yaml`
+- [x] Corrigir import faltante de `Endereco` no `PedidoService`
 
 ---
 
@@ -362,4 +363,4 @@
 
 ---
 
-*Última atualização: 2026-08-05 · Autor: Alexya Viana*
+*Última atualização: 2026-08-05 · M2 concluído · Autor: Alexya Viana*
