@@ -1,0 +1,29 @@
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.primary {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.accent {
+  background: var(--color-accent-light);
+  color: var(--color-accent-hover);
+}
+
+.success {
+  background: #C8E6C9;
+  color: var(--color-success);
+}
+
+.muted {
+  background: var(--color-border);
+  color: var(--color-text-muted);
+}

@@ -23,16 +23,16 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    /**
-     * Persiste um novo produto no banco de dados.
-     *
-     * @param dto DTO com nome, descrição e preço do produto
-     * @return O {@link br.com.pizzapub.domain.Produto} salvo com ID gerado
-     */
+    @Autowired
+    private br.com.pizzapub.repository.CategoriaRepository categoriaRepository;
+
     public Produto salvarProduto(CadastroProdutoDTO dto) {
         BigDecimal valor = new BigDecimal(dto.preco());
 
         Produto produto = new Produto(dto.nome(), dto.descricao(), valor);
+        if (dto.categoriaId() != null) {
+            produto.setCategoria(categoriaRepository.findById(dto.categoriaId()).orElse(null));
+        }
         return produtoRepository.save(produto);
     }
 

@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Entidade que representa um pedido feito por um {@link Cliente}.
@@ -33,6 +34,13 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true, nullable = false)
+    private UUID codigoRastreio = UUID.randomUUID();
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private StatusPedido status = StatusPedido.RECEBIDO;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
