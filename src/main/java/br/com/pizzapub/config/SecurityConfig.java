@@ -90,21 +90,23 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/register").hasRole("ADMIN")
 
-                        // Produtos — leitura pública, escrita restrita a ADMIN
-                        .requestMatchers(HttpMethod.GET, "/api/produtos", "/api/produtos/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/produtos").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/produtos/**").hasRole("ADMIN")
+                        // Produtos e Categorias — leitura pública, escrita restrita a ADMIN
+                        .requestMatchers(HttpMethod.GET, "/api/produtos", "/api/produtos/**", "/api/categorias", "/api/categorias/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/produtos", "/api/categorias").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/produtos/**", "/api/categorias/**").hasRole("ADMIN")
 
-                        // Pedidos — criar requer autenticação, consultar requer ATENDENTE+
-                        .requestMatchers(HttpMethod.POST, "/api/pedidos").hasAnyRole("CLIENTE", "ATENDENTE", "ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/pedidos", "/api/pedidos/**").hasAnyRole("ATENDENTE", "ADMIN")
+                        // Pedidos — criar e rastrear é público, consultar listagem requer autenticacao
+                        .requestMatchers(HttpMethod.POST, "/api/pedidos").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/pedidos/rastreio/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/pedidos", "/api/pedidos/**").authenticated()
 
                         // Ferramentas de desenvolvimento — sem autenticação
                         .requestMatchers(
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/v3/api-docs/**",
-                                "/h2-console/**"
+                                "/h2-console/**",
+                                "/error"
                         ).permitAll()
 
                         // Qualquer outro endpoint requer autenticação

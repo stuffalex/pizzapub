@@ -9,5 +9,7 @@ public record CadastroProdutoDTO(
         @Schema(example = "Pizza de calabresa com queijo e cebola")
         @NotBlank String descricao,
         @Schema(example = "50.00")
-        @NotBlank String preco) {
+        @NotBlank String preco,
+        @Schema(example = "1")
+        Long categoriaId) {
 }

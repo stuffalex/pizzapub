@@ -127,11 +127,19 @@ public class PedidoService {
         return pedidoRepository.findById(id).orElse(null);
     }
 
+    public Pedido buscarPorCodigoRastreio(java.util.UUID codigo) {
+        return pedidoRepository.findByCodigoRastreio(codigo).orElse(null);
+    }
+
     /**
      * Lista todos os pedidos cadastrados.
      * @return Lista de pedidos
      */
     public List<Pedido> listarTodos() {
         return pedidoRepository.findAll();
+    }
+
+    public List<Pedido> buscarPorCpf(String cpf) {
+        return pedidoRepository.findByClienteCpf(cpf);
     }
 }
