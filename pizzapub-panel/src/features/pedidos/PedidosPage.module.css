@@ -59,10 +59,105 @@
   color: var(--color-text-muted);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
+.kanban {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+.kanbanCol {
+  flex: 0 0 300px;
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-height: 400px;
+}
+
+.kanbanColHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.875rem 1rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-bottom: 3px solid;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.colCount {
+  background: var(--color-primary);
+  color: white;
+  border-radius: 9999px;
+  padding: 0.1rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+.kanbanCards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  flex: 1;
+}
+
+.emptyCol {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.footerActions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.cancelBtn {
+  background: transparent;
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger);
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: background 150ms, color 150ms;
+}
+
+.cancelBtn:hover {
+  background: var(--color-danger);
+  color: white;
+}
+
+.variacao {
+  color: var(--color-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.actionBtn {
+  background: var(--color-primary);
+  color: white;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: background 150ms;
+}
+
+.actionBtn:hover {
+  background: var(--color-primary-hover);
+}
+
+.actionBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .card {

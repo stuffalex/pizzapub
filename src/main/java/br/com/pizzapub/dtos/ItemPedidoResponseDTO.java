@@ -12,7 +12,8 @@ public record ItemPedidoResponseDTO(
         Integer quantidade,
         BigDecimal precoUnitario,
         String observacao,
-        List<String> sabores
+        List<String> sabores,
+        String variacao
 ) {
     public static ItemPedidoResponseDTO from(ItemPedido item) {
         return new ItemPedidoResponseDTO(
@@ -20,7 +21,8 @@ public record ItemPedidoResponseDTO(
                 item.getQuantidade(),
                 item.getPrecoUnitario(),
                 item.getObservacao(),
-                item.getSabores().stream().map(Produto::getNome).collect(Collectors.toList())
+                item.getSabores().stream().map(Produto::getNome).collect(Collectors.toList()),
+                item.getVariacao() != null ? item.getVariacao().getNome() : null
         );
     }
 }

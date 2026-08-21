@@ -29,5 +29,13 @@ export const produtosService = {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
     return data
+  },
+
+  async atualizarDisponivel(id: number, disponivel: boolean): Promise<void> {
+    await api.patch(`/api/produtos/${id}/disponivel`, { disponivel })
+  },
+
+  async criarVariacao(produtoId: number, nome: string, preco: number): Promise<void> {
+    await api.post(`/api/produtos/${produtoId}/variacoes`, { nome, preco })
   }
 }

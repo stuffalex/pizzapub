@@ -38,8 +38,8 @@ export function AcompanhamentoPage() {
     }
     
     fetchPedido()
-    // Atualiza a cada 30 segundos
-    const interval = setInterval(fetchPedido, 30000)
+    // Atualiza a cada 10 segundos
+    const interval = setInterval(fetchPedido, 10000)
     return () => clearInterval(interval)
   }, [codigo])
 
