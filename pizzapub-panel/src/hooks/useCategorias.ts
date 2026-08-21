@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { categoriaService, CadastroCategoriaDTO } from '@/core/api/categoria'
+import { categoriaService } from '@/core/api/categoria'
 
 export function useCategorias() {
   return useQuery({

@@ -74,7 +74,7 @@ export function ConfirmacaoPage() {
           size="lg"
           onClick={() => navigate('/')}
           style={{ width: '100%', marginTop: '1rem' }}
-          variant="outline"
+          variant="secondary"
         >
           Fazer Novo Pedido
         </Button>

@@ -93,12 +93,132 @@
 }
 
 .deleteBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-md);
   color: var(--color-danger);
-  padding: 0.5rem;
-  border-radius: var(--radius-sm);
   transition: background 150ms;
 }
 
 .deleteBtn:hover {
+  background: #FEF2F2;
+}
+
+.unavailable {
+  opacity: 0.5;
+}
+
+.thumb {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.varTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-top: 0.375rem;
+}
+
+.varTag {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.toggleAvailableBtn, .toggleUnavailableBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-md);
+  transition: background 150ms;
+}
+
+.toggleAvailableBtn {
+  color: var(--color-success);
+}
+
+.toggleAvailableBtn:hover {
+  background: #F0FDF4;
+}
+
+.toggleUnavailableBtn {
+  color: var(--color-text-muted);
+}
+
+.toggleUnavailableBtn:hover {
+  background: var(--color-bg);
+}
+
+.variacoesSection {
+  margin: 1rem 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+}
+
+.variacoesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.variacoesTitle {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--color-text);
+}
+
+.addVarBtn {
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  transition: background 150ms;
+}
+
+.addVarBtn:hover {
+  background: var(--color-bg);
+}
+
+.variacaoRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.varInput {
+  flex: 1;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.removeVarBtn {
+  color: var(--color-danger);
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  transition: background 150ms;
+}
+
+.removeVarBtn:hover {
   background: #FEF2F2;
 }

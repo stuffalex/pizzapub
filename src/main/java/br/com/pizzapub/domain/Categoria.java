@@ -21,4 +21,8 @@ public class Categoria {
     @NotBlank(message = "O nome da categoria é obrigatório")
     @Column(nullable = false, unique = true)
     private String nome;
+
+    /** Ordem de exibição no cardápio */
+    @Column(nullable = false, columnDefinition = "int default 0")
+    private Integer ordem = 0;
 }

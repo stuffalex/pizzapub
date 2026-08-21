@@ -10,6 +10,7 @@ export interface ItemPedido {
   quantidade: number
   observacao: string | null
   precoUnitario: number
+  variacao: string | null
 }
 
 export interface Cliente {
@@ -30,13 +31,17 @@ export interface Endereco {
   cep: string | null
 }
 
+export type StatusPedido = 'RECEBIDO' | 'PREPARANDO' | 'A_CAMINHO' | 'ENTREGUE' | 'CANCELADO'
+
 export interface PedidoResponse {
   id: number
+  codigoRastreio: string
+  status: StatusPedido
   cliente: Cliente
-  enderecoEntrega: string // formatado ou objeto dependendo do backend. O backend retorna string?
+  enderecoEntrega: string
   itens: ItemPedido[]
   observacao: string | null
   valorTotal: number
   dataCriacao: string
-  // backend: adicionar STATUS depois
 }
+

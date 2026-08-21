@@ -1,9 +1,11 @@
-- adicionar campo pra buscar pedido por cpf do cliente. salvar no localstorage quando mandar o cpf.
-- login no backend ainda nao está funcionando, qual a causa? token esta sendo recebido? testar com console log.
-- - http://localhost:8080/api/auth/login
-    Request Method
-    POST
-    Status Code
-    403 Forbidden
-    Remote Address
-- abrir o auth para login sem senha para que os testes visuais funcionem: apenas comentar o codigo e adicionar o q for necessario.
+14/08/26
+- 
+- validar todos os cruds do sistema nas telas. 
+- - criar editar apagar item, 
+- telas de itens/cardapio entrar por categoria. vincular itens a categorias, novo seed de dados para categorias de bebidas ()
+-coca cola, fanta, agua, budweiser, brahma
+
+- melhorar visual e usabilidade do menu, deve ser responsivo para telefoone
+- dividir categorias e ter menu no topo como 'rolagem' e clique, onde localiza na pagina ao clicar, como um hook para ajudar o usuario.
+- 
+- possibilidade de subir a logo da empresa pelo gerencial.

@@ -49,6 +49,10 @@ public class ItemPedido {
     )
     private List<Produto> sabores = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "variacao_id")
+    private Variacao variacao;
+
     @NotNull(message = "A quantidade é obrigatória")
     @Min(value = 1, message = "A quantidade deve ser no mínimo 1")
     private Integer quantidade;

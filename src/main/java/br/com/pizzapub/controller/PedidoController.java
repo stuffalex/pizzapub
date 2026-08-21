@@ -59,4 +59,19 @@ public class PedidoController {
     public ResponseEntity<List<PedidoResponseDTO>> buscarPorCpf(@PathVariable String cpf) {
         return ResponseEntity.ok(pedidoService.buscarPorCpf(cpf).stream().map(PedidoResponseDTO::from).toList());
     }
+
+    @PatchMapping("/{id}/status")
+    @org.springframework.security.access.prepost.PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
+    public ResponseEntity<PedidoResponseDTO> atualizarStatus(@PathVariable Long id, @RequestBody java.util.Map<String, String> request) {
+        String statusStr = request.get("status");
+        if (statusStr == null) return ResponseEntity.badRequest().build();
+        
+        try {
+            br.com.pizzapub.domain.StatusPedido novoStatus = br.com.pizzapub.domain.StatusPedido.valueOf(statusStr.toUpperCase());
+            Pedido pedidoAtualizado = pedidoService.atualizarStatus(id, novoStatus);
+            return ResponseEntity.ok(PedidoResponseDTO.from(pedidoAtualizado));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

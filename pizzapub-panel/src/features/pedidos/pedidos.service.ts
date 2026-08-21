@@ -1,5 +1,5 @@
 import api from '@/core/api/api'
-import { PedidoResponse } from '@/types/pedido'
+import { PedidoResponse, StatusPedido } from '@/types/pedido'
 
 export const pedidosService = {
   async listarPedidos(): Promise<PedidoResponse[]> {
@@ -11,9 +11,10 @@ export const pedidosService = {
     const { data } = await api.get<PedidoResponse>(`/api/pedidos/${id}`)
     return data
   },
-  
-  // A ser implementado no backend futuramente:
-  // async atualizarStatus(id: number, status: string): Promise<void> {
-  //   await api.put(`/api/pedidos/${id}/status`, { status })
-  // }
+
+  async atualizarStatus(id: number, status: StatusPedido): Promise<PedidoResponse> {
+    const { data } = await api.patch<PedidoResponse>(`/api/pedidos/${id}/status`, { status })
+    return data
+  }
 }
+

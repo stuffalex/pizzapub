@@ -70,4 +70,37 @@ public class ProdutoController {
         produtoService.deletarProduto(id);
         return ResponseEntity.noContent().build();
     }
+
+    /**
+     * Atualiza a disponibilidade de um produto (liga/desliga exibição no cardápio).
+     *
+     * @param id        ID do produto
+     * @param body      JSON com campo {@code disponivel} (boolean)
+     * @return {@code 200 OK} com o produto atualizado
+     */
+    @PatchMapping("/{id}/disponivel")
+    public ResponseEntity<Produto> atualizarDisponivel(@PathVariable Long id, @RequestBody java.util.Map<String, Boolean> body) {
+        Boolean disponivel = body.get("disponivel");
+        if (disponivel == null) return ResponseEntity.badRequest().build();
+        Produto produto = produtoService.atualizarDisponivel(id, disponivel);
+        return ResponseEntity.ok(produto);
+    }
+
+    /**
+     * Cria uma nova variação (tamanho/preço) vinculada a um produto.
+     *
+     * @param produtoId ID do produto pai
+     * @param body      JSON com {@code nome} e {@code preco}
+     * @return {@code 201 Created} com a variação criada
+     */
+    @PostMapping("/{produtoId}/variacoes")
+    public ResponseEntity<br.com.pizzapub.domain.Variacao> criarVariacao(
+            @PathVariable Long produtoId,
+            @RequestBody java.util.Map<String, Object> body) {
+        String nome = (String) body.get("nome");
+        Double preco = body.get("preco") instanceof Number ? ((Number) body.get("preco")).doubleValue() : null;
+        if (nome == null || preco == null) return ResponseEntity.badRequest().build();
+        br.com.pizzapub.domain.Variacao criada = produtoService.criarVariacao(produtoId, nome, java.math.BigDecimal.valueOf(preco));
+        return ResponseEntity.status(201).body(criada);
+    }
 }
