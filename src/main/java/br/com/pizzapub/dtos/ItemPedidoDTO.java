@@ -11,6 +11,8 @@ public record ItemPedidoDTO(
         List<Long> produtoIds,
         @Schema(example = "1")
         int quantidade,
+        @Schema(example = "1", description = "ID da Variação (Tamanho)")
+        Long variacaoId,
         @Schema(example = "Sem cebola", description = "Observações adicionais sobre o item")
         String observacao)
  {

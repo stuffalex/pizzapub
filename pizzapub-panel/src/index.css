@@ -1,0 +1,52 @@
+/* Tokens do Painel (Cores Neutras e Foco no Conteúdo) */
+:root {
+  --color-primary: #1E40AF; /* Azul escuro/institucional */
+  --color-primary-hover: #1D4ED8;
+  --color-danger: #EF4444; /* Vermelho para cancelar/deletar */
+  --color-success: #10B981; /* Verde para entregue/concluído */
+  --color-warning: #F59E0B; /* Laranja para pendências */
+  
+  --color-bg: #F3F4F6; /* Cinza bem claro (fundo da tela) */
+  --color-surface: #FFFFFF; /* Fundo dos cards */
+  --color-surface-hover: #F9FAFB;
+  --color-border: #E5E7EB;
+
+  --color-text: #111827;
+  --color-text-muted: #6B7280;
+
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

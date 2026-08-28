@@ -1,12 +1,14 @@
 package br.com.pizzapub.service;
 
 import br.com.pizzapub.domain.Cliente;
+import br.com.pizzapub.domain.Endereco;
 import br.com.pizzapub.domain.ItemPedido;
 import br.com.pizzapub.domain.Pedido;
 import br.com.pizzapub.domain.Produto;
 import br.com.pizzapub.repository.ClienteRepository;
 import br.com.pizzapub.repository.PedidoRepository;
 import br.com.pizzapub.repository.ProdutoRepository;
+import br.com.pizzapub.repository.VariacaoRepository;
 import br.com.pizzapub.dtos.ItemPedidoDTO;
 import br.com.pizzapub.dtos.PedidoDTO;
 import jakarta.transaction.Transactional;
@@ -87,6 +89,9 @@ public class PedidoService {
      * @return O {@link br.com.pizzapub.domain.ItemPedido} montado (ainda não persistido)
      * @throws RuntimeException se nenhum sabor for encontrado para os IDs fornecidos
      */
+    @Autowired
+    private VariacaoRepository variacaoRepository;
+
     private ItemPedido criarItem(ItemPedidoDTO itemDto, Pedido pedido) {
         List<Produto> sabores = produtoRepository.findAllById(itemDto.produtoIds());
 
@@ -100,18 +105,19 @@ public class PedidoService {
         item.setQuantidade(itemDto.quantidade());
         item.setObservacao(itemDto.observacao());
 
-        // Regra de Negócio: Preço da pizza é o valor da mais cara entre os sabores
-        BigDecimal maiorPreco = sabores.stream()
-                .map(Produto::getPreco)
-                .max(BigDecimal::compareTo)
-                .orElse(BigDecimal.ZERO);
-
-//        BigDecimal mediaPreco = sabores.stream()
-//                .map(Produto::getPreco)
-//                .reduce(BigDecimal.ZERO, BigDecimal::add)
-//                .divide(BigDecimal.valueOf(sabores.size()), MathContext.DECIMAL32);
-
-        item.setPrecoUnitario(maiorPreco);
+        if (itemDto.variacaoId() != null) {
+            br.com.pizzapub.domain.Variacao variacao = variacaoRepository.findById(itemDto.variacaoId())
+                    .orElseThrow(() -> new RuntimeException("Variação não encontrada"));
+            item.setVariacao(variacao);
+            item.setPrecoUnitario(variacao.getPreco());
+        } else {
+            // Fallback para maior preço se não houver variação (legado)
+            BigDecimal maiorPreco = sabores.stream()
+                    .map(Produto::getPreco)
+                    .max(BigDecimal::compareTo)
+                    .orElse(BigDecimal.ZERO);
+            item.setPrecoUnitario(maiorPreco);
+        }
 
         return item;
     }
@@ -124,5 +130,29 @@ public class PedidoService {
      */
     public Pedido buscarPedidoPorId(Long id) {
         return pedidoRepository.findById(id).orElse(null);
+    }
+
+    public Pedido buscarPorCodigoRastreio(java.util.UUID codigo) {
+        return pedidoRepository.findByCodigoRastreio(codigo).orElse(null);
+    }
+
+    /**
+     * Lista todos os pedidos cadastrados.
+     * @return Lista de pedidos
+     */
+    public List<Pedido> listarTodos() {
+        return pedidoRepository.findAll();
+    }
+
+    public List<Pedido> buscarPorCpf(String cpf) {
+        return pedidoRepository.findByClienteCpf(cpf);
+    }
+
+    @Transactional
+    public Pedido atualizarStatus(Long id, br.com.pizzapub.domain.StatusPedido novoStatus) {
+        Pedido pedido = pedidoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+        pedido.setStatus(novoStatus);
+        return pedidoRepository.save(pedido);
     }
 }

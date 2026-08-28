@@ -48,6 +48,14 @@ public class Produto {
     /** URL da imagem do produto. Futuramente armazenada no Supabase Storage. */
     private String urlImagem;
 
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
+    /** Define se o produto está disponível no cardápio */
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private Boolean disponivel = true;
+
     public Produto(String nome, String descricao, BigDecimal preco){
         this.nome = nome;
         this.descricao = descricao;

@@ -23,16 +23,19 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    /**
-     * Persiste um novo produto no banco de dados.
-     *
-     * @param dto DTO com nome, descrição e preço do produto
-     * @return O {@link br.com.pizzapub.domain.Produto} salvo com ID gerado
-     */
+    @Autowired
+    private br.com.pizzapub.repository.CategoriaRepository categoriaRepository;
+
+    @Autowired
+    private br.com.pizzapub.repository.VariacaoRepository variacaoRepository;
+
     public Produto salvarProduto(CadastroProdutoDTO dto) {
         BigDecimal valor = new BigDecimal(dto.preco());
 
         Produto produto = new Produto(dto.nome(), dto.descricao(), valor);
+        if (dto.categoriaId() != null) {
+            produto.setCategoria(categoriaRepository.findById(dto.categoriaId()).orElse(null));
+        }
         return produtoRepository.save(produto);
     }
 
@@ -62,5 +65,34 @@ public class ProdutoService {
      */
     public Iterable<Produto> listarTodos() {
         return produtoRepository.findAll();
+    }
+
+    /**
+     * Atualiza o campo disponível de um produto.
+     *
+     * @param id        ID do produto
+     * @param disponivel novo valor de disponibilidade
+     * @return o produto atualizado
+     */
+    public Produto atualizarDisponivel(Long id, Boolean disponivel) {
+        Produto produto = produtoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+        produto.setDisponivel(disponivel);
+        return produtoRepository.save(produto);
+    }
+
+    /**
+     * Cria uma nova variação (tamanho/preço) associada a um produto.
+     *
+     * @param produtoId ID do produto pai
+     * @param nome      nome da variação (ex: P, M, G)
+     * @param preco     preço da variação
+     * @return a variação criada
+     */
+    public br.com.pizzapub.domain.Variacao criarVariacao(Long produtoId, String nome, java.math.BigDecimal preco) {
+        Produto produto = produtoRepository.findById(produtoId)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+        br.com.pizzapub.domain.Variacao variacao = new br.com.pizzapub.domain.Variacao(produto, nome, preco);
+        return variacaoRepository.save(variacao);
     }
 }

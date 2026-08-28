@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * Controller REST para o recurso {@code /api/pedidos}.
@@ -17,6 +18,9 @@ import java.net.URI;
  * <p>Recebe pedidos criados pelo cardápio online e delega a lógica ao
  * {@link br.com.pizzapub.service.PedidoService}.</p>
  */
+import br.com.pizzapub.dtos.PedidoResponseDTO;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/pedidos")
 public class PedidoController {
@@ -24,34 +28,50 @@ public class PedidoController {
     @Autowired
     private PedidoService pedidoService;
 
-    /**
-     * Cria um novo pedido.
-     *
-     * @param dto        Dados do pedido (CPF do cliente, itens, endereço, observação)
-     * @param uriBuilder Usado para montar o cabeçalho {@code Location} com a URL do novo recurso
-     * @return {@code 201 Created} com o corpo do pedido e o header {@code Location}
-     */
     @PostMapping
-    public ResponseEntity<Pedido> criarPedido(@RequestBody @Valid PedidoDTO dto, UriComponentsBuilder uriBuilder) {
-        // Chama o service para processar a lógica pesada
+    public ResponseEntity<PedidoResponseDTO> criarPedido(@RequestBody @Valid PedidoDTO dto, UriComponentsBuilder uriBuilder) {
         Pedido pedidoSalvo = pedidoService.salvarPedido(dto);
-
-        // Boas práticas REST: Retornar 201 Created e o cabeçalho 'Location' com a URL do novo recurso
         URI uri = uriBuilder.path("/api/pedidos/{id}").buildAndExpand(pedidoSalvo.getId()).toUri();
-
-        return ResponseEntity.created(uri).body(pedidoSalvo);
+        return ResponseEntity.created(uri).body(PedidoResponseDTO.from(pedidoSalvo));
     }
 
-    /**
-     * Busca um pedido pelo ID.
-     *
-     * @param id ID do pedido
-     * @return {@code 200 OK} com o pedido, ou {@code 404} se não encontrado
-     */
     @GetMapping("/{id}")
-    public ResponseEntity<Pedido> buscarPorId(@PathVariable Long id) {
-        // Aqui você chamaria um método do service para buscar
+    public ResponseEntity<PedidoResponseDTO> buscarPorId(@PathVariable Long id) {
         Pedido pedido = pedidoService.buscarPedidoPorId(id);
-        return ResponseEntity.ok(pedido);
+        if (pedido == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(PedidoResponseDTO.from(pedido));
+    }
+
+    @GetMapping("/rastreio/{codigo}")
+    public ResponseEntity<PedidoResponseDTO> rastrearPedido(@PathVariable UUID codigo) {
+        Pedido pedido = pedidoService.buscarPorCodigoRastreio(codigo);
+        if (pedido == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(PedidoResponseDTO.from(pedido));
+    }
+
+    @GetMapping
+    @org.springframework.security.access.prepost.PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
+    public ResponseEntity<List<PedidoResponseDTO>> listarTodos() {
+        return ResponseEntity.ok(pedidoService.listarTodos().stream().map(PedidoResponseDTO::from).toList());
+    }
+
+    @GetMapping("/cliente/{cpf}")
+    public ResponseEntity<List<PedidoResponseDTO>> buscarPorCpf(@PathVariable String cpf) {
+        return ResponseEntity.ok(pedidoService.buscarPorCpf(cpf).stream().map(PedidoResponseDTO::from).toList());
+    }
+
+    @PatchMapping("/{id}/status")
+    @org.springframework.security.access.prepost.PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
+    public ResponseEntity<PedidoResponseDTO> atualizarStatus(@PathVariable Long id, @RequestBody java.util.Map<String, String> request) {
+        String statusStr = request.get("status");
+        if (statusStr == null) return ResponseEntity.badRequest().build();
+        
+        try {
+            br.com.pizzapub.domain.StatusPedido novoStatus = br.com.pizzapub.domain.StatusPedido.valueOf(statusStr.toUpperCase());
+            Pedido pedidoAtualizado = pedidoService.atualizarStatus(id, novoStatus);
+            return ResponseEntity.ok(PedidoResponseDTO.from(pedidoAtualizado));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

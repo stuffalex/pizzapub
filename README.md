@@ -56,33 +56,37 @@ Para o diagrama de entidades e fluxo de camadas, veja [`ARCHITECTURE.md`](./ARCH
 
 ---
 
-## ⚡ Como Rodar Localmente
+## ⚡ Como Rodar o Projeto (Guia Rápido)
 
-### Pré-requisitos
+Para que o sistema funcione por completo (Backend + Frontend), você precisa rodar ambos. Siga os passos abaixo:
 
-- Java 25+ instalado
-- Gradle (ou use o wrapper `./gradlew`)
+### Passo 1: Rodar o Backend (API)
+Abra um terminal na raiz do repositório do backend (`d:\PROJETOS\pizzapub`) e execute:
 
-### Passos
+**No Windows (PowerShell/CMD):**
+```bash
+cd d:\PROJETOS\pizzapub
+.\gradlew bootRun
+```
+> O backend iniciará na porta **8080**. O banco de dados já vem populado com 7 pizzas de exemplo!
+
+### Passo 2: Rodar o Frontend (Cardápio Online)
+Abra um **novo terminal** na pasta do frontend (`d:\PROJETOS\pizzapub-menu`) e execute:
 
 ```bash
-# 1. Clone o repositório
-git clone https://github.com/seu-usuario/pizzapub.git
-cd pizzapub
-
-# 2. Execute a aplicação
-./gradlew bootRun
-
-# 3. Acesse o Swagger UI
-# http://localhost:8080/swagger-ui.html
-
-# 4. Acesse o console H2 (banco em memória)
-# http://localhost:8080/h2-console
-# JDBC URL: jdbc:h2:mem:pizzariadb
-# Usuário: sa  |  Senha: (vazio)
+cd d:\PROJETOS\pizzapub-menu
+npm install    # (Só na primeira vez, para baixar dependências)
+npm run dev
 ```
+> O frontend iniciará e você poderá acessá-lo no navegador no link mostrado (geralmente `http://localhost:5173`).
 
-> O banco é populado automaticamente na inicialização via [`data.sql`](./src/main/resources/data.sql) com 7 pizzas de exemplo.
+---
+
+### Links Úteis (Com o backend rodando)
+- **Documentação da API (Swagger):** http://localhost:8080/swagger-ui.html
+- **Painel do Banco de Dados H2:** http://localhost:8080/h2-console
+  - *JDBC URL:* `jdbc:h2:mem:pizzariadb`
+  - *Usuário:* `sa` (Senha em branco)
 
 ---
 
