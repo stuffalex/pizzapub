@@ -164,144 +164,65 @@
 ### 🎯 F3.5 · Checkout & Envio do Pedido
 
 - [ ] Formulário de checkout:
-  - [ ] Campo CPF do cliente (com máscara)
-  - [ ] Campo endereço de entrega
-  - [ ] Campo observações gerais
-- [ ] Validação dos campos no frontend
-- [ ] Enviar `POST /api/pedidos` com JWT no header (se logado)
-- [ ] Tela de confirmação de pedido (número do pedido)
-- [ ] Tela de erro com opção de tentar novamente
+- [x] Campo endereço de entrega
+- [x] Campo observações gerais
+- [x] Validação dos campos no frontend
+- [x] Enviar `POST /api/pedidos` com JWT no header (se logado)
+- [x] Tela de confirmação de pedido (número do pedido)
+- [x] Tela de erro com opção de tentar novamente
 
 ### 🎯 F3.6 · Autenticação do Cliente (opcional no MVP)
 
-- [ ] Tela de login
-- [ ] Tela de cadastro
-- [ ] Persistir JWT no `localStorage` / `sessionStorage`
-- [ ] Interceptor Axios para enviar token em todas as requests
-- [ ] Logout (limpar token)
-- [ ] Redirecionamento para checkout após login
+- [x] Tela de login, cadastro, persistência de token e logout
 
 ---
 
-## ⏳ M4 · Painel de Pedidos (Frontend — React)
+## ✅ M4 – Painel de Pedidos (Frontend - React)
 
 > **Meta**: Interface interna para atendentes e admins gerenciarem pedidos e o cardápio em tempo real.
-> **Repositório**: `pizzapub-panel` (Vite + React)
-> **Status**: ⏳ Aguardando M2 e M3
-
-### 🎯 F4.1 · Setup do Projeto
-
-- [ ] Criar projeto com `npm create vite@latest pizzapub-panel -- --template react-ts`
-- [ ] Instalar dependências base (mesmas do M3 + extras):
-  - [ ] `react-hot-toast` — notificações
-  - [ ] `recharts` — gráficos de relatórios
-  - [ ] `date-fns` — formatação de datas
-- [ ] Rota base protegida — redireciona para login se não autenticado
-- [ ] Configurar proxy para a API em desenvolvimento
-
-### 🎯 F4.2 · Login & Controle de Acesso
-
-- [ ] Tela de login (email + senha)
-- [ ] Redirecionar para dashboard após login bem-sucedido
-- [ ] Guardar JWT e dados do usuário (nome, perfil) no estado global
-- [ ] Exibir menu/funcionalidades conforme perfil:
-  - [ ] `ATENDENTE`: apenas pedidos
-  - [ ] `ADMIN`: pedidos + cardápio + relatórios
-
-### 🎯 F4.3 · Dashboard de Pedidos
-
-- [ ] Buscar todos os pedidos via `GET /api/pedidos`
-- [ ] Cards de pedidos organizados por status:
-  - [ ] Novo / Em preparo / Saiu para entrega / Entregue / Cancelado
-- [ ] Atualização automática (polling a cada 30s)
-- [ ] Clicar no pedido para ver detalhes completos
-- [ ] Ação: avançar status do pedido
-- [ ] Ação: cancelar pedido (com motivo)
-- [ ] Filtro por status
-- [ ] Busca por número do pedido ou CPF
-
-### 🎯 F4.4 · Gerenciamento do Cardápio (Admin)
-
-- [ ] Listar todos os produtos: `GET /api/produtos`
-- [ ] Formulário de cadastro de produto (nome, descrição, preço, imagem)
-  - [ ] Upload de imagem → Supabase Storage (M5)
-- [ ] Editar produto existente (`PUT /api/produtos/{id}`)
-- [ ] Desativar/remover produto (`DELETE /api/produtos/{id}`)
-- [ ] Preview de como o produto aparece no cardápio online
-
-### 🎯 F4.5 · Relatórios Básicos (Admin)
-
-- [ ] Total de pedidos por dia/semana/mês (gráfico de barras)
-- [ ] Pizzas mais pedidas (gráfico de pizza)
-- [ ] Ticket médio por período
-- [ ] Exportar relatório como CSV
+> **Status**: ✅ Concluído (Unificado no pizzapub-frontend)
 
 ---
 
-## ⏳ M5 · Integração Supabase (Produção)
+## 🚀 M5 – Integração Supabase (Banco de Dados em Produção)
 
-> **Meta**: Substituir H2 por PostgreSQL gerenciado no Supabase, com storage de imagens e autenticação robusta.
-> **Status**: ⏳ Aguardando M2
+> **Meta**: Substituir o H2 local por um banco de dados real (PostgreSQL) hospedado no Supabase para uso em produção.
+> **Status**: 🔄 Em andamento
 
-### 🎯 F5.1 · Banco de Dados PostgreSQL
+### 🗄️ F5.1 – Setup do Banco de Dados PostgreSQL (Supabase)
 
-- [ ] Criar projeto no Supabase
-- [ ] Obter connection string do PostgreSQL
-- [ ] Adicionar dependência `postgresql` no `build.gradle.kts`
-- [ ] Criar `application-prod.yaml` com configurações do Supabase
-- [ ] Configurar Flyway para migrations versionadas
-  - [ ] `V1__create_tables.sql` — criar todas as tabelas
-  - [ ] `V2__seed_produtos.sql` — pizzas iniciais
-- [ ] Mudar `ddl-auto` de `update` para `none` em produção
-- [ ] Ativar Row Level Security (RLS) nas tabelas sensíveis
-- [ ] Testar toda a API contra o banco PostgreSQL
+- [ ] Criar projeto no Supabase e obter a connection string (URL do banco).
+- [ ] Adicionar dependência do driver `postgresql` no `build.gradle.kts`.
+- [ ] Criar arquivo `application-prod.properties` (ou `.yml`) com as configurações do Supabase.
+- [ ] Configurar conexão do Spring Boot para usar o PostgreSQL quando estiver em produção.
+- [ ] Testar a API conectando no Supabase (verificar se as tabelas são criadas automaticamente).
+- [ ] Criar `.env.example` no backend para mapear as credenciais (`DB_URL`, `DB_USER`, `DB_PASS`).
 
-### 🎯 F5.2 · Supabase Storage (Imagens)
+### 📦 F5.2 – Supabase Storage (Opcional para o momento)
 
-- [ ] Criar bucket `produtos-imagens` no Supabase Storage
-- [ ] Adicionar endpoint `POST /api/produtos/{id}/imagem` no backend
-- [ ] Integrar SDK do Supabase no backend para upload
-- [ ] Salvar URL pública da imagem no campo `urlImagem` do produto
-- [ ] Implementar upload de imagem no painel admin (F4.4)
-- [ ] Servir imagens via CDN do Supabase no cardápio
-
-### 🎯 F5.3 · Variáveis de Ambiente & Secrets
-
-- [ ] Documentar todas as variáveis de ambiente necessárias
-- [ ] Criar `.env.example` nos 3 projetos (backend + 2 frontends)
-- [ ] Configurar secrets no ambiente de deploy (nunca commitar `.env`)
-- [ ] Validar que nenhuma chave sensível está no código ou no repositório
+- [ ] Criar bucket `produtos-imagens` no Supabase Storage.
+- [ ] Salvar URLs públicas no banco de dados para os produtos.
 
 ---
 
-## ⏳ M6 · Deploy & DevOps
+## ☁️ M6 – Deploy & Colocando Tudo Online
 
-> **Meta**: Sistema disponível em produção com CI/CD automatizado.
+> **Meta**: Fazer o deploy do Backend e conectar ao Frontend hospedado no Vercel.
 > **Status**: ⏳ Aguardando M5
 
-### 🎯 F6.1 · Backend — Deploy
+### 🌐 F6.1 – Deploy do Backend (Render.com)
 
-- [ ] Definir plataforma de deploy (Railway / Render / Fly.io)
-- [ ] Criar `Dockerfile` para a API Spring Boot
-- [ ] Criar `docker-compose.yml` para ambiente local completo
-- [ ] Configurar variáveis de ambiente de produção na plataforma
-- [ ] Configurar domínio customizado para a API
+- [ ] Criar projeto Web Service no Render.com apontando para o repositório GitHub.
+- [ ] Configurar comando de build (`./gradlew build`) e start (`./gradlew bootRun` ou via `.jar`).
+- [ ] Configurar as Environment Variables no Render com as credenciais do Supabase (criadas no M5).
+- [ ] Obter a URL pública da API rodando (ex: `https://pizzapub-api.onrender.com`).
 
-### 🎯 F6.2 · Frontend — Deploy
+### 🌐 F6.2 – Configuração do Frontend (Vercel)
 
-- [ ] Deploy do cardápio online (`pizzapub-menu`) na Vercel ou Netlify
-- [ ] Deploy do painel de pedidos (`pizzapub-panel`) na Vercel ou Netlify
-- [ ] Configurar variáveis de ambiente nos projetos de deploy
-- [ ] Configurar domínios customizados
-
-### 🎯 F6.3 · CI/CD
-
-- [ ] Criar pipeline GitHub Actions para o backend:
-  - [ ] Rodar testes a cada PR
-  - [ ] Build e deploy automático no merge para `main`
-- [ ] Criar pipeline GitHub Actions para cada frontend:
-  - [ ] Lint + build check a cada PR
-  - [ ] Deploy automático no merge para `main`
+- [ ] Acessar o painel do Vercel (`pizzapub-frontend`).
+- [ ] Criar arquivo `.env.example` no frontend documentando as variáveis.
+- [ ] Adicionar a variável de ambiente `VITE_API_URL` apontando para a URL do Render.
+- [ ] Re-fazer o deploy (ou push) para que o frontend utilize a API em produção e não o `localhost`.
 
 ### 🎯 F6.4 · Monitoramento & Observabilidade
 

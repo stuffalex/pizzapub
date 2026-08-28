@@ -1,5 +1,5 @@
 -- Adicionar as colunas na tabela tb_pedido
-ALTER TABLE tb_pedido ADD COLUMN codigo_rastreio UUID NOT NULL DEFAULT gen_random_uuid();
+ALTER TABLE tb_pedido ADD COLUMN codigo_rastreio UUID NOT NULL;
 ALTER TABLE tb_pedido ADD COLUMN status VARCHAR(50) NOT NULL DEFAULT 'RECEBIDO';
 
 -- Garantir unicidade do codigo_rastreio
