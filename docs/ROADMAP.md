@@ -333,7 +333,8 @@
 - [ ] Sistema de avaliação (estrelas) por produto
 - [ ] Histórico de pedidos do cliente
 
-### Painel
+### Painel & Arquitetura
+- [ ] **Unificação dos Frontends:** Transformar ambos os projetos (gerencial e menu) em um único projeto (Monorepo ou SPA unificada com rotas distintas) para subir o projeto em uma mesma imagem (ex: Docker).
 - [ ] Notificações em tempo real via WebSocket (novos pedidos)
 - [ ] Impressão de comanda
 - [ ] Estimativa de tempo de entrega configurável
