@@ -70,11 +70,11 @@ cd d:\PROJETOS\pizzapub
 ```
 > O backend iniciará na porta **8080**. O banco de dados já vem populado com 7 pizzas de exemplo!
 
-### Passo 2: Rodar o Frontend (Cardápio Online)
-Abra um **novo terminal** na pasta do frontend (`d:\PROJETOS\pizzapub-menu`) e execute:
+### Passo 2: Rodar o Frontend (Cardápio Online e Painel Gerencial - SPA)
+Abra um **novo terminal** na pasta do frontend (`pizzapub-frontend`) e execute:
 
 ```bash
-cd d:\PROJETOS\pizzapub-menu
+cd pizzapub-frontend
 npm install    # (Só na primeira vez, para baixar dependências)
 npm run dev
 ```
