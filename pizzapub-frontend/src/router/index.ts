@@ -9,7 +9,11 @@ const router = createRouter({
       name: 'catalog',
       component: CatalogView
     },
-    // futuras rotas: checkout, tracking, etc.
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('../views/AdminView.vue')
+    }
   ]
 });
 
