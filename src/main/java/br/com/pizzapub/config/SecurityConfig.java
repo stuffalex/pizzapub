@@ -92,7 +92,9 @@ public class SecurityConfig {
 
                         // Produtos e Categorias — leitura pública, escrita restrita a ADMIN
                         .requestMatchers(HttpMethod.GET, "/api/produtos", "/api/produtos/**", "/api/categorias", "/api/categorias/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/produtos", "/api/categorias").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/produtos", "/api/produtos/**", "/api/categorias", "/api/categorias/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/produtos/**", "/api/categorias/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/api/produtos/**", "/api/categorias/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/produtos/**", "/api/categorias/**").hasRole("ADMIN")
 
                         // Pedidos — criar, rastrear e consultar por CPF é público; gerenciar listagem completa requer autenticacao

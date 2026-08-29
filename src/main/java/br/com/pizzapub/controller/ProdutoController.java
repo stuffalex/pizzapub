@@ -60,6 +60,19 @@ public class ProdutoController {
     }
 
     /**
+     * Atualiza um produto existente.
+     *
+     * @param id  ID do produto
+     * @param dto DTO com novos dados
+     * @return {@code 200 OK} com o produto atualizado
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody @Valid CadastroProdutoDTO dto) {
+        Produto atualizado = produtoService.atualizarProduto(id, dto);
+        return ResponseEntity.ok(atualizado);
+    }
+
+    /**
      * Remove um produto pelo ID.
      *
      * @param id ID do produto a remover
