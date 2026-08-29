@@ -25,8 +25,9 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401 || error.response?.status === 403) {
-      // Se não for a rota de login, desloga
-      if (error.config.url !== '/api/auth/login') {
+      // Apenas desloga e redireciona se estiver navegando em rotas protegidas de /admin
+      const isProtectedAdminRoute = window.location.pathname.startsWith('/admin')
+      if (isProtectedAdminRoute && error.config?.url !== '/api/auth/login') {
         useAuthStore.getState().logout()
         window.location.href = '/login'
       }

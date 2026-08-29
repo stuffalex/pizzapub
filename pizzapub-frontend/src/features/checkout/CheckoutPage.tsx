@@ -91,7 +91,7 @@ export function CheckoutPage() {
 
       const response = await checkoutService.criarPedido(pedido)
       clear()
-      navigate(`/confirmacao/${response.id}`)
+      navigate(`/confirmacao/${response.codigoRastreio || response.id}`, { state: { pedido: response } })
     } catch (err: unknown) {
       const axiosErr = err as { response?: { data?: { message?: string } } }
       setServerError(

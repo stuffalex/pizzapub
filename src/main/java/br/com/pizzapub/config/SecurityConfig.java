@@ -95,9 +95,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/produtos", "/api/categorias").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/produtos/**", "/api/categorias/**").hasRole("ADMIN")
 
-                        // Pedidos — criar e rastrear é público, consultar listagem requer autenticacao
+                        // Pedidos — criar, rastrear e consultar por CPF é público; gerenciar listagem completa requer autenticacao
                         .requestMatchers(HttpMethod.POST, "/api/pedidos").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/pedidos/rastreio/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/pedidos/rastreio/**", "/api/pedidos/cliente/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/pedidos", "/api/pedidos/**").authenticated()
 
                         // Ferramentas de desenvolvimento e monitoramento — sem autenticação
