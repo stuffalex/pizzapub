@@ -82,6 +82,23 @@ public class ProdutoService {
     }
 
     /**
+     * Atualiza os dados cadastrais de um produto.
+     */
+    public Produto atualizarProduto(Long id, CadastroProdutoDTO dto) {
+        Produto produto = produtoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+        produto.setNome(dto.nome());
+        produto.setDescricao(dto.descricao());
+        produto.setPreco(new BigDecimal(dto.preco()));
+        if (dto.categoriaId() != null) {
+            produto.setCategoria(categoriaRepository.findById(dto.categoriaId()).orElse(null));
+        } else {
+            produto.setCategoria(null);
+        }
+        return produtoRepository.save(produto);
+    }
+
+    /**
      * Cria uma nova variação (tamanho/preço) associada a um produto.
      *
      * @param produtoId ID do produto pai

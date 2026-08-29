@@ -33,18 +33,63 @@
   gap: 1rem;
 }
 
+.formCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.75rem;
+}
+
+.formCardHeader h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.closeFormBtn {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+}
+
+.closeFormBtn:hover {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.35rem;
+}
+
 .fields {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.input, .textarea {
+.input, .textarea, .select {
   padding: 0.75rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   font-family: inherit;
   font-size: 0.9rem;
   width: 100%;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.select {
+  cursor: pointer;
 }
 
 .textarea {
@@ -92,6 +137,35 @@
   color: var(--color-primary);
 }
 
+.categoryBadge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.editBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  transition: all 150ms;
+  cursor: pointer;
+}
+
+.editBtn:hover {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
 .deleteBtn {
   display: flex;
   align-items: center;
@@ -100,6 +174,9 @@
   height: 2.25rem;
   border-radius: var(--radius-md);
   color: var(--color-danger);
+  background: none;
+  border: none;
+  cursor: pointer;
   transition: background 150ms;
 }
 

@@ -5,6 +5,7 @@ export interface CadastroProduto {
   nome: string
   descricao: string
   preco: number
+  categoriaId?: number
 }
 
 export const produtosService = {
@@ -15,6 +16,11 @@ export const produtosService = {
 
   async cadastrarProduto(produto: CadastroProduto): Promise<Produto> {
     const { data } = await api.post<Produto>('/api/produtos', produto)
+    return data
+  },
+
+  async atualizarProduto(id: number, produto: CadastroProduto): Promise<Produto> {
+    const { data } = await api.put<Produto>(`/api/produtos/${id}`, produto)
     return data
   },
 
