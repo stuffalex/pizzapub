@@ -16,5 +16,6 @@ export interface Produto {
   categoria?: {
     id: number
     nome: string
+    ordem?: number
   }
 }
