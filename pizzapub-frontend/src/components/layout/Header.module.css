@@ -30,6 +30,13 @@
   line-height: 1;
 }
 
+.logoImg {
+  width: 2.25rem;
+  height: 2.25rem;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+}
+
 .logoText {
   font-family: var(--font-heading);
   font-size: 1.3rem;

@@ -11,6 +11,8 @@ import { AdminLayout } from '@/components/layout/AdminLayout'
 import { PedidosPage } from '@/features/pedidos/PedidosPage'
 import { ProdutosPage } from '@/features/produtos/ProdutosPage'
 import { CategoriasPage } from '@/features/categorias/CategoriasPage'
+import { ConfiguracoesPage } from '@/features/configuracoes/ConfiguracoesPage'
+
 export function App() {
   return (
     <Routes>
@@ -28,6 +30,7 @@ export function App() {
           <Route index element={<PedidosPage />} />
           <Route path="produtos" element={<ProdutosPage />} />
           <Route path="categorias" element={<CategoriasPage />} />
+          <Route path="configuracoes" element={<ConfiguracoesPage />} />
         </Route>
       </Route>
     </Routes>
