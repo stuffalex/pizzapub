@@ -100,8 +100,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/pedidos/rastreio/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/pedidos", "/api/pedidos/**").authenticated()
 
-                        // Ferramentas de desenvolvimento — sem autenticação
+                        // Ferramentas de desenvolvimento e monitoramento — sem autenticação
                         .requestMatchers(
+                                "/health",
+                                "/api/health",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/v3/api-docs/**",
